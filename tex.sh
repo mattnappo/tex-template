@@ -6,8 +6,7 @@ src="./src/" # Where the actual PS latex will be stored. Make sure to put a "/" 
 bin="./bin" # PDF Output directory
 template="./template.tex" # Template filepath
 
-# -- END CONFIG -- #
-
+# -- END CONFIG -- # 
 mkdir -p $bin
 mkdir -p $src
 tex=$(find $src -name "PS_*.tex")
@@ -15,23 +14,23 @@ flags="-halt-on-error -output-directory $bin"
 
 # Get a PS filepath given a number
 get_f () {
-    return "${src%?}/PS_$1.tex"
+    local path="${src%?}/PS_$1.tex"
+    echo $path
 }
 
 # Compile a single problem set given its path
 comp () {
     pdflatex $flags $1
-    raw=$(echo "${1%.tex}" | cut -c ${#src}-)
+    local raw=$(echo "${1%.tex}" | cut -c ${#src}-)
     rm $bin/$raw.log
 
-    num=$(echo "${1%.tex}" | cut -c $((${#src} + 5))-)
+    local num=$(echo "${1%.tex}" | cut -c $((${#src} + 5))-)
     echo "Compiled problem set $num"
 }
 
 # Compile all tex files in $src
 comp_all () {
-    for doc in $tex; do
-        comp $doc
+    for doc in $tex; do comp $doc
     done;
 }
 
@@ -52,7 +51,7 @@ fi
 
 # Compile a specific ps
 if [ "$1" = "ps" ]; then
-    f=get_f $2
+    f=$(get_f $2)
     comp $f
 fi
 
