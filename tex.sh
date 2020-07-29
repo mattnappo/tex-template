@@ -2,9 +2,9 @@
 
 # -- CONFIG -- #
 
-src="./src/" # Make sure to put a "/" at the end
-bin="./bin"
-template="./template.tex"
+src="./src/" # Where the actual PS latex will be stored. Make sure to put a "/" at the end
+bin="./bin" # PDF Output directory
+template="./template.tex" # Template filepath
 
 # -- END CONFIG -- #
 
